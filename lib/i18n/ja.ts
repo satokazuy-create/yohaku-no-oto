@@ -6,4 +6,16 @@ export const ja = {
   appName: "余白の音",
   tagline: "こころに羽を。からだに余白を。",
   placeholderNotice: "準備中です。もう少しだけ、お待ちください。",
+  home: {
+    greetingMorning: "おはようございます。",
+    greetingDay: "こんにちは。",
+    greetingEvening: "こんばんは。",
+    omakaseButton: "くぅにまかせる",
+    audioNotice: "音は静かに始まります",
+    chooseSelfLink: "じぶんで選ぶ ▾",
+    gardenEntry: "庭",
+    letterEntry: "音の手紙",
+    settingsLabel: "設定",
+    comingSoon: "準備中",
+  },
 } as const;

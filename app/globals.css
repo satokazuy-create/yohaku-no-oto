@@ -24,3 +24,24 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* くぅのゆっくりとした浮遊(設計書§14 S01)。reduced-motion環境では静止させる */
+.kuu-float {
+  animation: kuu-float 6s ease-in-out infinite;
+}
+
+@keyframes kuu-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kuu-float {
+    animation: none;
+  }
+}
