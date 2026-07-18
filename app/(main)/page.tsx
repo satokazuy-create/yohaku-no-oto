@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/Button";
 import { getGreeting } from "@/lib/greeting";
 import { ja } from "@/lib/i18n/ja";
 
-// S01ホームの静的UI第1試作(設計書§14)。モックデータ・ローカル完結。
-// S02(気分選択)・S03(再生)・S05(庭)・S06(音の手紙)は未実装のため、
-// 遷移先が必要なボタンはすべて disabled にしてある(実装フェーズで解除する)。
+// S01ホームの静的UI試作(設計書§14)。モックデータ・ローカル完結。
+// 「くぅにまかせる」は気分選択を経ずに再生へ(mood=none、設計書§23)。
+// 「じぶんで選ぶ」はS02気分選択へ。庭・音の手紙・設定は未実装のためdisabledのまま。
 export default function Home() {
   const greeting = getGreeting();
 
@@ -19,11 +19,11 @@ export default function Home() {
       </section>
 
       <section className="flex w-full flex-col items-center gap-3">
-        <Button variant="primary" disabled>
+        <Button variant="primary" href="/play?mood=none">
           {ja.home.omakaseButton}
         </Button>
         <p className="text-[11px] text-[#a8a8a8]">{ja.home.audioNotice}</p>
-        <Button variant="text" disabled>
+        <Button variant="text" href="/choose">
           {ja.home.chooseSelfLink}
         </Button>
       </section>

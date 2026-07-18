@@ -18,4 +18,20 @@ export const ja = {
     settingsLabel: "設定",
     comingSoon: "準備中",
   },
+  choose: {
+    heading: "いまは、どんな感じですか?",
+    backLink: "← もどる",
+  },
+  play: {
+    stopButton: "とめる",
+    durationOptions: ["1分", "3分", "5分"] as const,
+  },
+  reflect: {
+    heading: "どうでしたか。",
+    subheading: "どれを選んでも だいじょうぶ",
+    relaxed: "少しゆるんだ",
+    same: "変わらない",
+    unknown: "わからない",
+    skip: "(こたえずに とじる)",
+  },
 } as const;
