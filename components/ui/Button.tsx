@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
-type Variant = "primary" | "text" | "icon" | "list";
+type Variant = "primary" | "text" | "icon" | "list" | "listAuto";
 
 const BASE = "min-h-11 min-w-11 transition-colors disabled:cursor-not-allowed";
 
@@ -11,6 +11,9 @@ const VARIANTS: Record<Variant, string> = {
   text: "text-sm text-[#7a7a7a] hover:underline disabled:opacity-60",
   icon: "flex flex-col items-center gap-1 text-sm text-[#7a7a7a] disabled:opacity-50",
   list: "flex h-16 w-full items-center justify-center rounded-2xl border border-[#e5ddd0] bg-white px-6 text-base text-[#4a4a4a] hover:border-[#C9A0A0] disabled:opacity-60",
+  // listAuto: 定型文など文字数が可変な選択肢向け(S06)。高さ固定にせず折り返しを許可する。
+  listAuto:
+    "flex min-h-16 w-full items-center justify-center rounded-2xl border border-[#e5ddd0] bg-white px-6 py-3 text-center text-sm leading-relaxed text-[#4a4a4a] hover:border-[#C9A0A0] disabled:opacity-60",
 };
 
 type ButtonAsButton = { variant?: Variant; className?: string; href?: undefined } & Omit<

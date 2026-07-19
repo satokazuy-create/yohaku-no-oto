@@ -34,4 +34,19 @@ export const ja = {
     unknown: "わからない",
     skip: "(こたえずに とじる)",
   },
+  garden: {
+    message: "きょう、雨が一滴、たまりました。",
+    backLink: "← ホームへ",
+  },
+  letter: {
+    stepSoundHeading: "音をえらぶ",
+    stepPhraseHeading: "ことばをえらぶ",
+    stepPreviewHeading: "プレビュー",
+    nameLabel: "なまえ(任意・10文字まで)",
+    createLinkButton: "リンクをつくる",
+    doneHeading: "たねが、とんでいきました。",
+    doneNotice: "このリンクを大切な人に送ってください(30日間有効・仮)",
+    backLink: "← もどる",
+    homeLink: "← ホームへ",
+  },
 } as const;
