@@ -59,11 +59,13 @@ export const ja = {
   safety: {
     footerLink: "安心して使うために",
     heading: "安心して使うために",
+    prototypeNotice: "これはモニター確認用の試作版です。",
     disclaimer: "このアプリは医療・診断・治療を目的としていません。",
     contactsHeading: "つらいときは、ひとりで抱えなくて大丈夫です。",
-    contactsNotice: "電話番号・受付時間は変更されることがあります。発信前に必ずご自身で最新情報をご確認ください。",
+    contactsProvisional:
+      "相談窓口情報は準備中です。緊急時には、地域の医療機関や公的相談窓口をご利用ください。",
     privacyHeading: "プライバシーポリシー・利用規約",
-    privacyNotice: "準備中です。一般公開までに掲載します。",
+    privacyNotice: "一般公開前に掲載予定です。",
     backLink: "← ホームへ",
   },
   onboarding: {

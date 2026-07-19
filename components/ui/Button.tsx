@@ -5,15 +5,19 @@ type Variant = "primary" | "text" | "icon" | "list" | "listAuto";
 
 const BASE = "min-h-11 min-w-11 transition-colors disabled:cursor-not-allowed";
 
+// プライマリボタンの色は2026-07-19の実機フィードバックで変更。
+// 旧#C9A0A0(ダスティローズ)は白文字とのコントラストが約2.3:1しかなく、
+// 端末のダークモード反転とも相まって「警告色の暗い赤」に見えていたため、
+// 白文字でAAコントラスト(4.5:1以上)を確保できる、くすみオレンジ系(#B0613F)に変更した。
 const VARIANTS: Record<Variant, string> = {
   primary:
-    "flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#C9A0A0] px-6 text-base font-medium text-white hover:bg-[#b98f8f] disabled:opacity-60",
-  text: "text-sm text-[#7a7a7a] hover:underline disabled:opacity-60",
-  icon: "flex flex-col items-center gap-1 text-sm text-[#7a7a7a] disabled:opacity-50",
-  list: "flex h-16 w-full items-center justify-center rounded-2xl border border-[#e5ddd0] bg-white px-6 text-base text-[#4a4a4a] hover:border-[#C9A0A0] disabled:opacity-60",
+    "flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#B0613F] px-6 text-base font-medium text-white hover:bg-[#96502F] disabled:opacity-60",
+  text: "text-sm text-[#5a5a5a] hover:underline disabled:opacity-60",
+  icon: "flex flex-col items-center gap-1 text-sm text-[#3d3833] disabled:opacity-50",
+  list: "flex h-16 w-full items-center justify-center rounded-2xl border border-[#e5ddd0] bg-white px-6 text-base text-[#3d3833] hover:border-[#B0613F] disabled:opacity-60",
   // listAuto: 定型文など文字数が可変な選択肢向け(S06)。高さ固定にせず折り返しを許可する。
   listAuto:
-    "flex min-h-16 w-full items-center justify-center rounded-2xl border border-[#e5ddd0] bg-white px-6 py-3 text-center text-sm leading-relaxed text-[#4a4a4a] hover:border-[#C9A0A0] disabled:opacity-60",
+    "flex min-h-16 w-full items-center justify-center rounded-2xl border border-[#e5ddd0] bg-white px-6 py-3 text-center text-sm leading-relaxed text-[#3d3833] hover:border-[#B0613F] disabled:opacity-60",
 };
 
 type ButtonAsButton = { variant?: Variant; className?: string; href?: undefined } & Omit<

@@ -10,11 +10,11 @@ export default function Home() {
   const greeting = getGreeting();
 
   return (
-    <main className="flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-[#FAF6EF] px-6 py-16 font-serif text-[#4a4a4a]">
+    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-[#FAF6EF] px-6 py-16 pb-20 font-serif text-[#3d3833]">
       <div aria-hidden="true" />
 
       <section className="flex flex-col items-center gap-4 text-center">
-        <Kuu className="kuu-float" />
+        <Kuu className="kuu-float" size={140} />
         <p className="text-base">{greeting}</p>
       </section>
 
@@ -22,7 +22,7 @@ export default function Home() {
         <Button variant="primary" href="/play?mood=none">
           {ja.home.omakaseButton}
         </Button>
-        <p className="text-[11px] text-[#a8a8a8]">{ja.home.audioNotice}</p>
+        <p className="text-xs text-[#6b6b6b]">{ja.home.audioNotice}</p>
         <Button variant="text" href="/choose">
           {ja.home.chooseSelfLink}
         </Button>

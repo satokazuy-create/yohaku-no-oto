@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "余白の音",
   description: "こころに羽を。からだに余白を。",
+};
+
+// colorScheme: "light" で、端末のダークモード設定による自動反転(Android Chromeの
+// 簡易ダークテーマ等)を止める。MVPでは明るい固定テーマのみをサポートする。
+// viewportFit: "cover" は safe-area-inset-* を有効にするために必要。
+export const viewport: Viewport = {
+  colorScheme: "light",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

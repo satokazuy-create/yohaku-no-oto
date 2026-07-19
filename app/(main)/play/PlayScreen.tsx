@@ -18,7 +18,7 @@ export function PlayScreen() {
 
   if (phase === "reflected") {
     return (
-      <main className="flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 text-center font-serif text-[#4a4a4a]">
+      <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
         <p className="text-base">
           {ja.reflect.heading}
           <br />
@@ -43,20 +43,20 @@ export function PlayScreen() {
   }
 
   return (
-    <main className="flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-[#2e2b28] px-6 py-16 text-center font-serif text-[#f5efe6]">
+    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-[#24424A] px-6 py-16 pb-20 text-center font-serif text-[#f5efe6]">
       <div aria-hidden="true" />
 
       <section className="flex flex-col items-center gap-6">
         <div
-          className="breathe h-24 w-24 rounded-full border border-[#f5efe6]/60"
+          className="breathe h-24 w-24 rounded-full border-2 border-[#f5efe6]/80"
           aria-hidden="true"
         />
-        <p className="text-sm text-[#f5efe6]/80">{MOOD_MOCK_SOUND[mood]}</p>
+        <p className="text-sm text-[#f5efe6]/90">{MOOD_MOCK_SOUND[mood]}</p>
         {showCaption && <p className="text-base">「{MOOD_MOCK_CAPTION[mood]}」</p>}
         <button
           type="button"
           onClick={() => setShowCaption((v) => !v)}
-          className="min-h-11 min-w-11 text-xs text-[#f5efe6]/60 underline-offset-4 hover:underline"
+          className="min-h-11 min-w-11 text-xs text-[#f5efe6]/75 underline-offset-4 hover:underline"
         >
           字幕 {showCaption ? "ON" : "OFF"}
         </button>
@@ -66,11 +66,11 @@ export function PlayScreen() {
         <button
           type="button"
           onClick={() => setPhase("reflected")}
-          className="min-h-11 flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#f5efe6] text-base font-medium text-[#2e2b28] hover:bg-white"
+          className="min-h-11 flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#f5efe6] text-base font-medium text-[#1f363c] hover:bg-white"
         >
           {ja.play.stopButton}
         </button>
-        <p className="text-xs text-[#f5efe6]/60">
+        <p className="text-xs text-[#f5efe6]/75">
           {ja.play.durationOptions.join(" ▸ ")}
         </p>
       </section>

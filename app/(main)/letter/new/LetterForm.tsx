@@ -30,16 +30,16 @@ export function LetterForm() {
     const letterPath = `/l/${mockToken}?${previewParams.toString()}`;
 
     return (
-      <main className="flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 text-center font-serif text-[#4a4a4a]">
+      <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
         <p className="text-base">{ja.letter.doneHeading}</p>
         <Link
           href={letterPath}
-          className="w-full max-w-xs break-all rounded-2xl border border-[#e5ddd0] bg-white px-4 py-3 text-xs text-[#7a7a7a] underline-offset-4 hover:underline"
+          className="w-full max-w-xs break-all rounded-2xl border border-[#e5ddd0] bg-white px-4 py-3 text-xs text-[#5a5a5a] underline-offset-4 hover:underline"
         >
           {APP_URL}
           {letterPath}
         </Link>
-        <p className="text-xs text-[#a8a8a8]">{ja.letter.doneNotice}</p>
+        <p className="text-xs text-[#6b6b6b]">{ja.letter.doneNotice}</p>
         <Button variant="text" href="/">
           {ja.letter.homeLink}
         </Button>
@@ -48,8 +48,8 @@ export function LetterForm() {
   }
 
   return (
-    <main className="flex min-h-screen flex-1 flex-col items-center gap-6 bg-[#FAF6EF] px-6 py-16 font-serif text-[#4a4a4a]">
-      <p className="text-xs text-[#a8a8a8]">
+    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 font-serif text-[#3d3833]">
+      <p className="text-xs text-[#6b6b6b]">
         {phase === "sound" ? "1" : phase === "phrase" ? "2" : "3"} / 3
       </p>
 
@@ -96,7 +96,7 @@ export function LetterForm() {
           <button
             type="button"
             onClick={() => setPhase("sound")}
-            className="min-h-11 text-sm text-[#7a7a7a] hover:underline"
+            className="min-h-11 text-sm text-[#5a5a5a] hover:underline"
           >
             {ja.letter.backLink}
           </button>
@@ -107,18 +107,18 @@ export function LetterForm() {
         <>
           <h1 className="text-center text-lg">{ja.letter.stepPreviewHeading}</h1>
           <div className="w-full max-w-xs rounded-2xl border border-[#e5ddd0] bg-white p-5 text-center">
-            <p className="text-sm text-[#a8a8a8]">{soundLabel}</p>
+            <p className="text-sm text-[#6b6b6b]">{soundLabel}</p>
             <p className="mt-2 text-base leading-relaxed">「{phrase}」</p>
           </div>
 
-          <label className="flex w-full max-w-xs flex-col gap-1 text-sm text-[#7a7a7a]">
+          <label className="flex w-full max-w-xs flex-col gap-1 text-sm text-[#5a5a5a]">
             {ja.letter.nameLabel}
             <input
               type="text"
               value={name}
               maxLength={10}
               onChange={(e) => setName(e.target.value)}
-              className="min-h-11 rounded-xl border border-[#e5ddd0] bg-white px-3 py-2 text-[#4a4a4a]"
+              className="min-h-11 rounded-xl border border-[#e5ddd0] bg-white px-3 py-2 text-[#3d3833]"
             />
           </label>
 
@@ -135,7 +135,7 @@ export function LetterForm() {
           <button
             type="button"
             onClick={() => setPhase("phrase")}
-            className="min-h-11 text-sm text-[#7a7a7a] hover:underline"
+            className="min-h-11 text-sm text-[#5a5a5a] hover:underline"
           >
             {ja.letter.backLink}
           </button>

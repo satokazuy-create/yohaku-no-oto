@@ -6,7 +6,7 @@ import { ja } from "@/lib/i18n/ja";
 // 数値・グラフ・日数は表示しない(設計書§17.3禁止事項)。garden_stateからの実描画は未実装。
 export default function GardenPage() {
   return (
-    <main className="flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-gradient-to-b from-[#e9f0e6] to-[#FAF6EF] px-6 py-16 text-center font-serif text-[#4a4a4a]">
+    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-gradient-to-b from-[#e9f0e6] to-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
       <div aria-hidden="true" />
 
       <section

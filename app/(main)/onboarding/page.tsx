@@ -6,7 +6,7 @@ import { ja } from "@/lib/i18n/ja";
 // 「初回のみ表示」の自動判定(localStorage等)は未実装。このルートを直接開けば確認できる。
 export default function OnboardingPage() {
   return (
-    <main className="flex min-h-screen flex-1 flex-col items-center justify-center gap-8 bg-[#FAF6EF] px-6 py-16 text-center font-serif text-[#4a4a4a]">
+    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-center gap-8 bg-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
       <Kuu className="kuu-float" />
       <p className="max-w-xs text-base leading-relaxed">{ja.onboarding.message}</p>
       <Button variant="primary" href="/">

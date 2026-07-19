@@ -6,7 +6,7 @@ import { MOOD_LABEL, MOOD_ORDER } from "@/lib/moods";
 // 「何も選びたくない」だけをグレーアウトしたりしない(設計書§7 委任優先)。
 export default function ChoosePage() {
   return (
-    <main className="flex min-h-screen flex-1 flex-col items-center gap-6 bg-[#FAF6EF] px-6 py-16 font-serif text-[#4a4a4a]">
+    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 font-serif text-[#3d3833]">
       <h1 className="text-center text-lg">{ja.choose.heading}</h1>
 
       <div className="flex w-full max-w-xs flex-col gap-3">

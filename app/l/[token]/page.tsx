@@ -17,14 +17,14 @@ export default async function LetterReceivePage({ searchParams }: Props) {
   const name = params.name ? decodeURIComponent(params.name) : "";
 
   return (
-    <main className="flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 text-center font-serif text-[#4a4a4a]">
+    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
       <div className="bloom text-5xl" aria-hidden="true">
         🌸
       </div>
 
       {phrase && <p className="max-w-xs text-lg leading-relaxed">「{phrase}」</p>}
       {name && (
-        <p className="text-sm text-[#a8a8a8]">
+        <p className="text-sm text-[#6b6b6b]">
           ── {name} {ja.letterReceive.fromSuffix}
         </p>
       )}
@@ -33,17 +33,17 @@ export default async function LetterReceivePage({ searchParams }: Props) {
         type="button"
         disabled
         aria-label={`${ja.letterReceive.playButton}(${ja.letterReceive.playComingSoon})`}
-        className="flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#C9A0A0] px-6 text-base font-medium text-white opacity-60 disabled:cursor-not-allowed"
+        className="flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#B0613F] px-6 text-base font-medium text-white opacity-60 disabled:cursor-not-allowed"
       >
         {ja.letterReceive.playButton}
       </button>
-      {soundLabel && <p className="text-xs text-[#a8a8a8]">{soundLabel}</p>}
+      {soundLabel && <p className="text-xs text-[#6b6b6b]">{soundLabel}</p>}
 
-      <p className="text-xs text-[#a8a8a8]">{ja.letterReceive.noReplyNotice}</p>
+      <p className="text-xs text-[#6b6b6b]">{ja.letterReceive.noReplyNotice}</p>
 
       <Link
         href="/"
-        className="min-h-11 text-xs text-[#a8a8a8] underline-offset-4 hover:underline"
+        className="min-h-11 text-xs text-[#6b6b6b] underline-offset-4 hover:underline"
       >
         {ja.letterReceive.aboutLink}
       </Link>

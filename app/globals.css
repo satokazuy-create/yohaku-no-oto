@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+/* MVPでは明るい固定テーマのみをサポートする(端末のダークモードには追従しない)。
+   デザイン規約:背景はクリーム、本文文字は十分に濃い色(2026-07-19 実機フィードバックで確定)。
+   @media (prefers-color-scheme: dark) は意図的に置かない。 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #faf6ef;
+  --foreground: #3d3833;
 }
 
 @theme inline {
@@ -12,17 +16,15 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Android/iOSのジェスチャーナビゲーションバーに要素が隠れないようにする */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* くぅのゆっくりとした浮遊(設計書§14 S01)。reduced-motion環境では静止させる */
