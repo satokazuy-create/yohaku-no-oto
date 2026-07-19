@@ -49,4 +49,25 @@ export const ja = {
     backLink: "← もどる",
     homeLink: "← ホームへ",
   },
+  letterReceive: {
+    fromSuffix: "より",
+    playButton: "▷ 音をきく(3分)",
+    playComingSoon: "音源は準備中です",
+    noReplyNotice: "※返信は不要です",
+    aboutLink: "余白の音について",
+  },
+  safety: {
+    footerLink: "安心して使うために",
+    heading: "安心して使うために",
+    disclaimer: "このアプリは医療・診断・治療を目的としていません。",
+    contactsHeading: "つらいときは、ひとりで抱えなくて大丈夫です。",
+    contactsNotice: "電話番号・受付時間は変更されることがあります。発信前に必ずご自身で最新情報をご確認ください。",
+    privacyHeading: "プライバシーポリシー・利用規約",
+    privacyNotice: "準備中です。一般公開までに掲載します。",
+    backLink: "← ホームへ",
+  },
+  onboarding: {
+    message: "音は静かに始まります。いつでも止められます。",
+    startButton: "はじめる",
+  },
 } as const;

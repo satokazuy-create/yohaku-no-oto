@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { APP_URL } from "@/lib/config";
 import { ja } from "@/lib/i18n/ja";
@@ -20,12 +21,24 @@ export function LetterForm() {
   const soundLabel = LETTER_SOUNDS.find((s) => s.id === soundId)?.label ?? "";
 
   if (phase === "done") {
+    // 静的UI試作段階のためDB保存はせず、表示内容をクエリパラメータに載せて
+    // S07(受信ページ)へそのまま渡す(実装フェーズでは§23 GET /api/letters/:tokenに置き換える)。
+    const previewParams = new URLSearchParams();
+    if (soundId) previewParams.set("sound", soundId);
+    if (phrase) previewParams.set("phrase", phrase);
+    if (name) previewParams.set("name", name);
+    const letterPath = `/l/${mockToken}?${previewParams.toString()}`;
+
     return (
       <main className="flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 text-center font-serif text-[#4a4a4a]">
         <p className="text-base">{ja.letter.doneHeading}</p>
-        <p className="w-full max-w-xs break-all rounded-2xl border border-[#e5ddd0] bg-white px-4 py-3 text-xs text-[#7a7a7a]">
-          {APP_URL}/l/{mockToken}
-        </p>
+        <Link
+          href={letterPath}
+          className="w-full max-w-xs break-all rounded-2xl border border-[#e5ddd0] bg-white px-4 py-3 text-xs text-[#7a7a7a] underline-offset-4 hover:underline"
+        >
+          {APP_URL}
+          {letterPath}
+        </Link>
         <p className="text-xs text-[#a8a8a8]">{ja.letter.doneNotice}</p>
         <Button variant="text" href="/">
           {ja.letter.homeLink}
