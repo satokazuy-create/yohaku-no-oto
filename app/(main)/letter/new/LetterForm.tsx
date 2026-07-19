@@ -30,7 +30,7 @@ export function LetterForm() {
     const letterPath = `/l/${mockToken}?${previewParams.toString()}`;
 
     return (
-      <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
+      <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-6 text-center font-serif text-[#3d3833]">
         <p className="text-base">{ja.letter.doneHeading}</p>
         <Link
           href={letterPath}
@@ -48,7 +48,7 @@ export function LetterForm() {
   }
 
   return (
-    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 font-serif text-[#3d3833]">
+    <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-6 font-serif text-[#3d3833]">
       <p className="text-xs text-[#6b6b6b]">
         {phase === "sound" ? "1" : phase === "phrase" ? "2" : "3"} / 3
       </p>

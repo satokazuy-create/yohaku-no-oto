@@ -10,11 +10,11 @@ export default function Home() {
   const greeting = getGreeting();
 
   return (
-    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-[#FAF6EF] px-6 py-16 pb-20 font-serif text-[#3d3833]">
+    <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center justify-between gap-6 bg-[#FAF6EF] px-6 py-10 pb-6 font-serif text-[#3d3833]">
       <div aria-hidden="true" />
 
-      <section className="flex flex-col items-center gap-4 text-center">
-        <Kuu className="kuu-float" size={140} />
+      <section className="flex flex-col items-center gap-3 text-center">
+        <Kuu className="kuu-float" size={120} />
         <p className="text-base">{greeting}</p>
       </section>
 

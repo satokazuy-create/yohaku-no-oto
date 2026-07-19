@@ -18,7 +18,7 @@ export function PlayScreen() {
 
   if (phase === "reflected") {
     return (
-      <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
+      <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-6 text-center font-serif text-[#3d3833]">
         <p className="text-base">
           {ja.reflect.heading}
           <br />
@@ -43,7 +43,7 @@ export function PlayScreen() {
   }
 
   return (
-    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-between gap-10 bg-[#24424A] px-6 py-16 pb-20 text-center font-serif text-[#f5efe6]">
+    <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center justify-between gap-10 bg-[#24424A] px-6 py-16 pb-6 text-center font-serif text-[#f5efe6]">
       <div aria-hidden="true" />
 
       <section className="flex flex-col items-center gap-6">

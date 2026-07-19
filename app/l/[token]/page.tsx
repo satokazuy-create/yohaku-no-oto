@@ -17,7 +17,7 @@ export default async function LetterReceivePage({ searchParams }: Props) {
   const name = params.name ? decodeURIComponent(params.name) : "";
 
   return (
-    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-20 text-center font-serif text-[#3d3833]">
+    <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-6 text-center font-serif text-[#3d3833]">
       <div className="bloom text-5xl" aria-hidden="true">
         🌸
       </div>

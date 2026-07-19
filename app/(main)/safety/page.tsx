@@ -6,7 +6,7 @@ import { ja } from "@/lib/i18n/ja";
 // 一次情報を確認するまで掲載しない(2026-07-19実機フィードバックで暫定文言に変更)。
 export default function SafetyPage() {
   return (
-    <main className="safe-bottom flex min-h-screen flex-1 flex-col items-center gap-8 bg-[#FAF6EF] px-6 py-16 pb-20 font-serif text-[#3d3833]">
+    <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center gap-8 bg-[#FAF6EF] px-6 py-16 pb-6 font-serif text-[#3d3833]">
       <p className="w-full max-w-sm rounded-xl border border-[#e5ddd0] bg-[#fff8ee] px-4 py-2 text-center text-xs text-[#6b6b6b]">
         {ja.safety.prototypeNotice}
       </p>

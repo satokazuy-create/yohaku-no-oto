@@ -12,7 +12,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   const isActive = pathname === "/safety";
 
   return (
-    <div className="relative flex min-h-screen flex-1 flex-col">
+    <div className="relative flex min-h-dvh flex-1 flex-col">
       {children}
       <Link
         href="/safety"

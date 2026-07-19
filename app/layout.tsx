@@ -12,16 +12,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// color-scheme: "light only" で、端末のダークモード設定による自動反転(Android Chromeの
+// 「Webサイトを自動的に暗くする」等)を止める。Next.jsのViewport型は"only"修飾子を
+// 型として持たないため、metadata.other で直接 <meta name="color-scheme"> を出力する
+// (2026-07-19実機再確認:"light"単体では一部端末で反転が止まらなかったため強化)。
 export const metadata: Metadata = {
   title: "余白の音",
   description: "こころに羽を。からだに余白を。",
+  other: {
+    "color-scheme": "light only",
+  },
 };
 
-// colorScheme: "light" で、端末のダークモード設定による自動反転(Android Chromeの
-// 簡易ダークテーマ等)を止める。MVPでは明るい固定テーマのみをサポートする。
 // viewportFit: "cover" は safe-area-inset-* を有効にするために必要。
 export const viewport: Viewport = {
-  colorScheme: "light",
   viewportFit: "cover",
 };
 
