@@ -46,3 +46,57 @@ export const MOOD_GARDEN_FIELD: Record<MoodId, GardenField> = {
   sleep: "sky",
   none: "drops",
 };
+
+// 「くぅにまかせる」(mood=none)の候補プール(設計書§23「時間帯既定」の簡易版)。
+// 本来の時間帯×履歴のレコメンドロジックは未実装のため、既存の気分(quiet/relief/
+// lonely/sleep)の音・字幕・庭の変化を時間帯ごとに複数候補として借用する暫定対応。
+// lib/greeting.ts の時間帯区分と揃えている。選ばれた結果は必ずこの4つのいずれかに
+// 解決し、mood=noneのままDBに残したり庭に反映したりすることはない。
+type TimeBucket = "morning" | "day" | "night";
+
+const OMAKASE_CANDIDATES: Record<TimeBucket, MoodId[]> = {
+  morning: ["relief", "quiet"], // 朝:森でゆるやかに、または雨でひと休み
+  day: ["quiet", "relief"], // 昼:雨でひと休み、または森でゆるやかに
+  night: ["sleep", "lonely"], // 夜:湯船でゆっくり、または焚き火でひとりの時間
+};
+
+function getTimeBucket(date: Date): TimeBucket {
+  const hour = date.getHours();
+  if (hour >= 5 && hour < 11) return "morning";
+  if (hour >= 11 && hour < 17) return "day";
+  return "night";
+}
+
+export const OMAKASE_HISTORY_KEY = "yohaku_omakase_last_mood";
+
+// 直前に選ばれた候補(lastMood)を除外して1つ選ぶ、純粋な(副作用のない)関数。
+// 「選ぶ」(このファイルで読み取りのみ)と「履歴に保存する」(呼び出し側でuseEffect等
+// を使って書き込みのみ)を分離しているのは、React Strict Mode(開発時)がuseStateの
+// 遅延初期化関数を2回呼ぶ際、読み取り+書き込みが1つの関数内にまとまっていると
+// 1回目の書き込みを2回目が読んでしまい、履歴が壊れる不具合があったため。
+export function pickOmakaseMood(date: Date, lastMood: string | null): MoodId {
+  const candidates = OMAKASE_CANDIDATES[getTimeBucket(date)];
+  const pool = candidates.length > 1 ? candidates.filter((m) => m !== lastMood) : candidates;
+  return pool[Math.floor(Math.random() * pool.length)] ?? candidates[0];
+}
+
+// pickOmakaseMood用にlocalStorageから直前の履歴を読む(読み取りのみ、副作用なし)。
+// localStorageが使えない環境(プライベートモード・SSR等)ではnullを返す。
+export function readOmakaseHistory(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage.getItem(OMAKASE_HISTORY_KEY);
+  } catch {
+    return null;
+  }
+}
+
+// 選ばれた結果を履歴として保存する(書き込みのみ)。呼び出し側のuseEffectから呼ぶこと。
+export function writeOmakaseHistory(mood: MoodId): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(OMAKASE_HISTORY_KEY, mood);
+  } catch {
+    // 保存できなくても体験は続行する
+  }
+}
