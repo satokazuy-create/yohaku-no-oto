@@ -33,3 +33,16 @@ export const MOOD_MOCK_CAPTION: Record<MoodId, string> = {
 export function isMoodId(value: string | null): value is MoodId {
   return !!value && (MOOD_ORDER as string[]).includes(value);
 }
+
+export type GardenField = "drops" | "plants" | "flowers" | "sky";
+
+// 気分→庭の変化(設計書§17.2は「聴いた音の種類」で決まるが、実音源カタログが
+// 未実装のため、暫定的に気分の仮音源(MOOD_MOCK_SOUND)に対応する形で代用する。
+// 雨系→drops、森・風系→plants、朗読言葉系→flowers、ほぼ無音系→sky に相当。
+export const MOOD_GARDEN_FIELD: Record<MoodId, GardenField> = {
+  quiet: "drops",
+  relief: "plants",
+  lonely: "flowers",
+  sleep: "sky",
+  none: "drops",
+};

@@ -4,7 +4,10 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { ja } from "@/lib/i18n/ja";
-import { MOOD_MOCK_CAPTION, MOOD_MOCK_SOUND, isMoodId, type MoodId } from "@/lib/moods";
+import { MOOD_GARDEN_FIELD, MOOD_MOCK_CAPTION, MOOD_MOCK_SOUND, isMoodId, type MoodId } from "@/lib/moods";
+import { ensureAnonymousSession } from "@/lib/supabase/auth";
+import { incrementGardenField } from "@/lib/supabase/garden";
+import { recordCompletedSession } from "@/lib/supabase/sessions";
 
 // S03再生・S04振り返りの静的UI試作(設計書§14)。音源・タイマーは未実装(見た目のみ)。
 // 「とめる」は画面遷移なしでS04へ切り替える(設計書§13の遷移図に合わせた挙動)。
@@ -15,6 +18,21 @@ export function PlayScreen() {
 
   const [phase, setPhase] = useState<"playing" | "reflected">("playing");
   const [showCaption, setShowCaption] = useState(true);
+  const [stopping, setStopping] = useState(false);
+
+  async function handleStop() {
+    setStopping(true);
+    try {
+      const session = await ensureAnonymousSession();
+      await recordCompletedSession(session.user.id, mood);
+      await incrementGardenField(session.user.id, MOOD_GARDEN_FIELD[mood]);
+    } catch (err) {
+      console.error("庭への記録に失敗しました", err);
+      // 接続に失敗しても振り返り画面には進める(体験を止めない)
+    } finally {
+      setPhase("reflected");
+    }
+  }
 
   if (phase === "reflected") {
     return (
@@ -65,8 +83,9 @@ export function PlayScreen() {
       <section className="flex w-full flex-col items-center gap-4">
         <button
           type="button"
-          onClick={() => setPhase("reflected")}
-          className="min-h-11 flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#f5efe6] text-base font-medium text-[#1f363c] hover:bg-white"
+          onClick={handleStop}
+          disabled={stopping}
+          className="min-h-11 flex h-[72px] w-[80%] max-w-xs items-center justify-center rounded-full bg-[#f5efe6] text-base font-medium text-[#1f363c] hover:bg-white disabled:opacity-70"
         >
           {ja.play.stopButton}
         </button>
