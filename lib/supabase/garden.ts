@@ -50,8 +50,48 @@ export async function incrementGardenField(
   return data as GardenState;
 }
 
+const FIELD_LABEL: Record<GardenField, string> = {
+  drops: "雨",
+  plants: "草木",
+  flowers: "花",
+  sky: "空",
+};
+
+// 量に応じた3段階の言い回し(数値は表示しない。設計書§17.3)。
+// 1〜2回・3〜5回・6回以上、というざっくりした境目で言葉を変えるだけの簡易版。
+const FIELD_TIER_MESSAGE: Record<GardenField, [string, string, string]> = {
+  drops: [
+    "雨が、ひとしずく落ちました。",
+    "雨が、静かに降り積もっています。",
+    "雨が、たっぷりと降り積もっています。",
+  ],
+  plants: [
+    "草木が、芽を出し始めました。",
+    "草木が、ゆっくり育っています。",
+    "草木が、青々と茂っています。",
+  ],
+  flowers: [
+    "花が、ひとつひらきました。",
+    "花が、いくつかひらいています。",
+    "花が、たくさんひらいています。",
+  ],
+  sky: [
+    "空が、ほんの少し明るくなりました。",
+    "空が、少し明るくなっています。",
+    "空が、すっかり明るくなっています。",
+  ],
+};
+
+function tierIndex(count: number): 0 | 1 | 2 {
+  if (count <= 2) return 0;
+  if (count <= 5) return 1;
+  return 2;
+}
+
 // 数値・グラフ・日数は表示しない(設計書§17.3)。カウントから詩的な一言を
 // 生成する簡易版。§17の本来の設計(複数バリエーション・季節の色調)は未実装。
+// 最多の種類が複数(同数)ある場合は、そのすべてをまとめて伝える
+// (以前は同数のとき常に配列の先頭=dropsが選ばれ、育っていても文言が変わらなかった)。
 export function describeGardenState(state: GardenState): string {
   const totals: [GardenField, number][] = [
     ["drops", state.drops],
@@ -59,20 +99,19 @@ export function describeGardenState(state: GardenState): string {
     ["flowers", state.flowers],
     ["sky", state.sky],
   ];
-  const dominant = totals.reduce((max, cur) => (cur[1] > max[1] ? cur : max));
+  const maxCount = Math.max(...totals.map(([, count]) => count));
 
-  if (dominant[1] === 0) {
+  if (maxCount === 0) {
     return "まだ、静けさが集まり始めたところです。";
   }
 
-  switch (dominant[0]) {
-    case "drops":
-      return "雨が、静かに降り積もっています。";
-    case "plants":
-      return "草木が、ゆっくり育っています。";
-    case "flowers":
-      return "花が、いくつかひらいています。";
-    case "sky":
-      return "空が、少し明るくなっています。";
+  const leaders = totals.filter(([, count]) => count === maxCount);
+
+  if (leaders.length > 1) {
+    const labels = leaders.map(([field]) => FIELD_LABEL[field]).join("・");
+    return `${labels}が、静かに育っています。`;
   }
+
+  const [field, count] = leaders[0];
+  return FIELD_TIER_MESSAGE[field][tierIndex(count)];
 }
