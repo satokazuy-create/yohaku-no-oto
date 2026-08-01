@@ -47,6 +47,10 @@ export function LetterForm() {
 
   if (phase === "done") {
     const letterPath = `/l/${token}`;
+    // 本番(Vercel)でNEXT_PUBLIC_APP_URL未設定だとAPP_URLがlocalhostにフォールバックし
+    // 誤った共有リンクを表示してしまうため、この画面は必ずユーザー操作後(クライアント側)
+    // にしか出ないことを利用し、実際に開いている場所のオリジンを直接使う。
+    const origin = typeof window !== "undefined" ? window.location.origin : APP_URL;
 
     return (
       <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-6 text-center font-serif text-[#3d3833]">
@@ -55,7 +59,7 @@ export function LetterForm() {
           href={letterPath}
           className="w-full max-w-xs break-all rounded-2xl border border-[#e5ddd0] bg-white px-4 py-3 text-xs text-[#5a5a5a] underline-offset-4 hover:underline"
         >
-          {APP_URL}
+          {origin}
           {letterPath}
         </Link>
         <p className="text-xs text-[#6b6b6b]">{ja.letter.doneNotice}</p>
