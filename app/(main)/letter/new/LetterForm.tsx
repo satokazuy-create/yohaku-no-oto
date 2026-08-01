@@ -6,28 +6,47 @@ import { Button } from "@/components/ui/Button";
 import { APP_URL } from "@/lib/config";
 import { ja } from "@/lib/i18n/ja";
 import { LETTER_PHRASES, LETTER_SOUNDS, type LetterSoundId } from "@/lib/letterOptions";
+import { ensureAnonymousSession } from "@/lib/supabase/auth";
+import { createLetter } from "@/lib/supabase/letters";
 
 type Phase = "sound" | "phrase" | "preview" | "done";
 
-// S06音の手紙・作成の静的UI試作(設計書§14・§19.1)。3ステップ+プレビュー。
-// リンク発行はモック(クライアント側でランダム文字列を生成するのみ、実際のURL発行・DB保存は未実装)。
+// S06音の手紙・作成(設計書§14・§19.1)。3ステップ+プレビュー。
+// 「リンクをつくる」で実際にSupabaseのlettersテーブルへ保存する(supabase/migrations/0002)。
 export function LetterForm() {
   const [phase, setPhase] = useState<Phase>("sound");
   const [soundId, setSoundId] = useState<LetterSoundId | null>(null);
   const [phrase, setPhrase] = useState<string | null>(null);
   const [name, setName] = useState("");
-  const [mockToken, setMockToken] = useState("");
+  const [token, setToken] = useState("");
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState(false);
 
   const soundLabel = LETTER_SOUNDS.find((s) => s.id === soundId)?.label ?? "";
 
+  async function handleCreateLink() {
+    if (!soundId || !phrase) return;
+    setCreating(true);
+    setCreateError(false);
+    try {
+      const session = await ensureAnonymousSession();
+      const newToken = await createLetter(session.user.id, {
+        soundId,
+        phrase,
+        senderName: name,
+      });
+      setToken(newToken);
+      setPhase("done");
+    } catch (err) {
+      console.error("音の手紙の作成に失敗しました", err);
+      setCreateError(true);
+    } finally {
+      setCreating(false);
+    }
+  }
+
   if (phase === "done") {
-    // 静的UI試作段階のためDB保存はせず、表示内容をクエリパラメータに載せて
-    // S07(受信ページ)へそのまま渡す(実装フェーズでは§23 GET /api/letters/:tokenに置き換える)。
-    const previewParams = new URLSearchParams();
-    if (soundId) previewParams.set("sound", soundId);
-    if (phrase) previewParams.set("phrase", phrase);
-    if (name) previewParams.set("name", name);
-    const letterPath = `/l/${mockToken}?${previewParams.toString()}`;
+    const letterPath = `/l/${token}`;
 
     return (
       <main className="safe-bottom flex min-h-dvh flex-1 flex-col items-center justify-center gap-6 bg-[#FAF6EF] px-6 py-16 pb-6 text-center font-serif text-[#3d3833]">
@@ -122,13 +141,11 @@ export function LetterForm() {
             />
           </label>
 
-          <Button
-            variant="primary"
-            onClick={() => {
-              setMockToken(Math.random().toString(36).slice(2, 10));
-              setPhase("done");
-            }}
-          >
+          {createError && (
+            <p className="text-xs text-[#B0613F]">{ja.letter.createError}</p>
+          )}
+
+          <Button variant="primary" onClick={handleCreateLink} disabled={creating}>
             {ja.letter.createLinkButton}
           </Button>
 
