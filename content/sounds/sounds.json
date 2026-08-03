@@ -1,0 +1,30 @@
+[
+  {
+    "id": "rain",
+    "label": "雨",
+    "file": "/sounds/rain.m4a",
+    "layer": "L1",
+    "source_type": "external_cc",
+    "status": "published",
+    "license_type": "Pixabay Content License",
+    "rights_holder": "FeedTheStrayCats (Pixabay)",
+    "usage_scope": "app_playback_only",
+    "loudness_lufs": -20.4,
+    "true_peak_dbtp": -3.6,
+    "duration_sec": 21.1
+  },
+  {
+    "id": "campfire",
+    "label": "焚き火",
+    "file": "/sounds/campfire.m4a",
+    "layer": "L1",
+    "source_type": "external_cc",
+    "status": "published",
+    "license_type": "Pixabay Content License",
+    "rights_holder": "soundsforyou (Pixabay)",
+    "usage_scope": "app_playback_only",
+    "loudness_lufs": -25.4,
+    "true_peak_dbtp": -2.2,
+    "duration_sec": 139.9
+  }
+]

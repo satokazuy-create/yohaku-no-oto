@@ -3,22 +3,26 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import { useLoopingSound } from "@/lib/audio/useLoopingSound";
 import { ja } from "@/lib/i18n/ja";
 import {
   MOOD_GARDEN_FIELD,
   MOOD_MOCK_CAPTION,
   MOOD_MOCK_SOUND,
+  MOOD_SOUND_ID,
   pickOmakaseMood,
   readOmakaseHistory,
   writeOmakaseHistory,
   isMoodId,
   type MoodId,
 } from "@/lib/moods";
+import { getSoundById } from "@/lib/sounds";
 import { ensureAnonymousSession } from "@/lib/supabase/auth";
 import { incrementGardenField } from "@/lib/supabase/garden";
 import { recordCompletedSession } from "@/lib/supabase/sessions";
 
-// S03再生・S04振り返りの静的UI試作(設計書§14)。音源・タイマーは未実装(見た目のみ)。
+// S03再生・S04振り返りの静的UI試作(設計書§14)。タイマーは未実装(見た目のみ)。
+// 音源は実装済みだが、実音源を用意できているmoodのみ(lib/moods.tsのMOOD_SOUND_ID参照)。
 // 「とめる」は画面遷移なしでS04へ切り替える(設計書§13の遷移図に合わせた挙動)。
 export function PlayScreen() {
   const searchParams = useSearchParams();
@@ -46,7 +50,12 @@ export function PlayScreen() {
   const [showCaption, setShowCaption] = useState(true);
   const [stopping, setStopping] = useState(false);
 
+  const soundId = MOOD_SOUND_ID[contentMood];
+  const soundFile = soundId ? (getSoundById(soundId)?.file ?? null) : null;
+  const { stop: stopSound } = useLoopingSound(soundFile);
+
   async function handleStop() {
+    stopSound();
     setStopping(true);
     try {
       const session = await ensureAnonymousSession();

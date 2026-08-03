@@ -34,6 +34,18 @@ export function isMoodId(value: string | null): value is MoodId {
   return !!value && (MOOD_ORDER as string[]).includes(value);
 }
 
+// 実音源を用意できたmoodのみ、content/sounds/sounds.jsonのidを指定する(設計書§16.2)。
+// 未対応のmoodはnull(これまでどおり見た目・字幕のみ)。音源を増やすたびにここへ追加する。
+// noneはcontentMood解決後には使われない(必ずquiet等のいずれかに解決されるため)が、
+// Recordを網羅させるためnullを入れている。
+export const MOOD_SOUND_ID: Record<MoodId, string | null> = {
+  quiet: "rain",
+  relief: null,
+  lonely: "campfire",
+  sleep: null,
+  none: null,
+};
+
 export type GardenField = "drops" | "plants" | "flowers" | "sky";
 
 // 気分→庭の変化(設計書§17.2は「聴いた音の種類」で決まるが、実音源カタログが
